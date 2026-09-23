@@ -1,4 +1,165 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CBT Epiglotitis</title><style>
-body{margin:0;background:#f3f6fb;color:#20304a;font:16px Arial}header{background:linear-gradient(120deg,#173b70,#3979c8);color:white;padding:24px}main{max-width:980px;margin:22px auto;padding:0 14px;display:grid;grid-template-columns:1fr 230px;gap:16px}.card{background:white;border:1px solid #dce4f0;border-radius:14px;padding:20px}.opt{display:flex;gap:12px;width:100%;text-align:left;padding:13px;margin:9px 0;border:1px solid #dce4f0;border-radius:10px;background:white;cursor:pointer;color:#20304a}.opt b{background:#edf2fb;padding:6px 9px;border-radius:6px}.sel{border:2px solid #3267d6;background:#f0f5ff}.ok{background:#e6f7ee;border-color:#16835e}.bad{background:#fff0f1;border-color:#c43c4b}.btn{background:#3267d6;color:white;border:0;padding:12px 16px;border-radius:9px;cursor:pointer;font-weight:bold}.alt{background:#e8edf5;color:#20304a}.row{display:flex;justify-content:space-between;margin-top:20px;gap:8px}.nums{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.num{padding:9px 0;border:1px solid #dce4f0;background:white;border-radius:7px;cursor:pointer}.cur{background:#3267d6;color:white}.done{background:#dce9ff}.good{background:#dff5e9}.wrong{background:#ffe3e5}.feed{display:none;background:#f1f5fb;padding:13px;border-radius:9px;margin-top:12px;line-height:1.5}.show{display:block}.track{height:8px;background:#e7edf6;margin:15px 0 22px;border-radius:8px}.fill{height:8px;background:#3267d6;width:0}.small{font-size:12px;color:#65748b;line-height:1.5}.result{display:none;text-align:center}.score{font-size:32px;color:#3267d6;font-weight:bold}@media(max-width:700px){main{grid-template-columns:1fr}.side{order:-1}.nums{grid-template-columns:repeat(9,1fr)}}</style></head><body>
-<header><h1>CBT · Epiglotitis</h1><p>Latihan soal interaktif · Medical Study Companion</p></header><main><section class="card"><div id="quiz"><span id="counter"></span><span id="answered" style="float:right"></span><div class="track"><div class="fill" id="fill"></div></div><h2 id="question"></h2><div id="options"></div><div id="feedback" class="feed"></div><div class="row"><button class="btn alt" id="prev">← Sebelumnya</button><button class="btn" id="next">Berikutnya →</button></div></div><div id="result" class="result"><div class="score" id="score"></div><h2 id="message"></h2><p id="details"></p><button class="btn" onclick="restart()">Ulangi kuis (acak)</button></div></section><aside class="card side"><h3 id="sidetitle">Navigasi soal</h3><div id="nums" class="nums"></div><p class="small">Biru: dipilih · Hijau: benar · Merah: salah</p><button class="btn" id="finish" style="width:100%">Selesaikan kuis</button><p class="small">Disusun berdasarkan file Resume Materi Epiglottitis. Terapi dan dosis ditampilkan sebagai isi materi untuk pembelajaran, bukan instruksi klinis.</p></aside></main>
-<script>const data=[["Epiglotitis adalah peradangan pada…", ["Epiglotis beserta struktur sekitarnya", "Bronkus", "Esofagus distal", "Nasofaring saja", "Trakea saja"], 0, "Mencakup epiglotis, arytenoid, lipatan aryepiglottic, dan vallecula."], ["Pembengkakan epiglotitis berbahaya karena dapat menyebabkan…", ["Perdarahan otak", "Gagal ginjal", "Anemia", "Gangguan penglihatan", "Asfiksia dan gangguan napas"], 4, "Pembengkakan saluran napas atas dapat menyebabkan asfiksia dan gangguan pernapasan."], ["Usia dengan prevalensi terbanyak menurut sumber…", ["10–15 tahun", "20–30 tahun", "2–6 tahun", "40–50 tahun", "Di atas 70 tahun"], 2, "Sumber menyebut anak usia 2–6 tahun."], ["Imunisasi yang dikaitkan dengan jarangnya kejadian epiglotitis adalah…", ["Campak", "Polio", "BCG", "Hib", "Tetanus"], 3, "Materi menyatakan kondisi ini jarang pada pasien yang mendapatkan imunisasi Hib."], ["Bakteri etiologi yang disebut dalam sumber adalah…", ["Treponema pallidum", "Clostridium tetani", "H. pylori", "Hib", "Vibrio cholerae"], 3, "Hib termasuk etiologi bakteri dalam materi."], ["Trauma lokal yang disebutkan adalah…", ["Kurang tidur", "Olahraga", "Dehidrasi", "Paparan matahari", "Terhirup benda asing atau setelah intubasi"], 4, "Keduanya tercantum sebagai trauma lokal."], ["Obstruksi jalan napas dapat muncul setelah ISPA dalam…", ["1–2 hari", "1–2 menit", "7–10 hari", "6–12 jam", "1 bulan"], 3, "Rentang 6–12 jam disebutkan dalam sumber."], ["Kumpulan gejala yang sesuai materi adalah…", ["Nyeri pinggang", "Poliuria saja", "Ruam saja", "Ikterus dan hematuria", "Demam tinggi, drooling, dysphagia, distress"], 4, "Gejala penting meliputi demam tinggi, drooling, dysphagia, dan distress."], ["Posisi pasien yang dapat ditemukan…", ["Miring dengan kaki terangkat", "Tengkurap", "Duduk/berdiri membungkuk ke depan", "Bersandar ke belakang", "Telentang dengan leher ekstensi"], 2, "Pasien dapat duduk atau berdiri dengan sedikit membungkuk ke depan."], ["Suara yang dicantumkan sebagai manifestasi adalah…", ["Gallop", "Suara vesikuler", "Tidak ada perubahan", "Hot potato sound", "Borborygmi"], 3, "Hot potato sound disebut dalam materi."], ["Stridor dapat terjadi pada…", ["Ekspirasi saja", "Inspirasi atau ekspirasi", "Menelan saja", "Inspirasi saja", "Tidur saja"], 1, "Materi menyebut stridor inspirasi atau ekspirasi."], ["Tanda pada pemeriksaan radiologi adalah…", ["Cherry epiglottis", "Drooling", "Leukositosis", "Thumb sign", "Abses"], 3, "Thumb sign dikaitkan dengan radiologi."], ["Temuan hematologi rutin adalah…", ["Trombositopenia", "Eosinopenia", "Polisitemia", "Leukopenia", "Leukositosis"], 4, "Sumber mencantumkan leukositosis."], ["Endoskopi menunjukkan…", ["Edema supraglottis dan epiglotis merah cherry", "Leukositosis", "Thumb sign", "Abses paru", "Mandibula terdorong ke depan"], 0, "Itulah temuan endoskopi yang dicantumkan."], ["CT dan MRI digunakan untuk menilai…", ["Hot potato sound", "Drooling", "Abses epiglotis", "Leukositosis", "Stridor"], 2, "CT & MRI dikaitkan dengan abses epiglotis."], ["Area hypo-attenuating pada CT sugestif terhadap…", ["Udara trakea", "Tulang normal", "Cairan atau pembentukan awal abses", "Tumor esofagus", "Perdarahan telinga"], 2, "Keterangan gambar menyebut kemungkinan cairan atau pembentukan awal abses."], ["Perawatan yang dicantumkan adalah…", ["Isolasi rumah saja", "Tanpa pemantauan", "Rawat inap ke ICU", "Rawat jalan saja", "Fisioterapi saja"], 2, "Sumber menuliskan rawat inap menuju ICU."], ["Tindakan airway yang disebut setelah diagnosis akut…", ["Trakeostomi atau intubasi", "Dialisis", "Spirometri", "Gips", "Operasi sinus"], 0, "Keduanya dicantumkan dalam bagian terapi."], ["Kelembapan dan suhu kamar yang tercantum…", ["100%; 25–30°C", "20–30%; 30–35°C", "0%; 10°C", "50%; 40°C", "90–95%; 16–20°C"], 4, "Sumber mencantumkan kelembapan 90–95% dan suhu 16–20°C."], ["Antibiotik beserta dosis spesifik yang ditulis…", ["Metronidazol 1 mg/kgBB/hari", "Doksisiklin 10 mg/hari", "Amoksisilin 5 mg/kgBB/hari", "Siprofloksasin 2 gram", "Ampisillin 100 mg/kgBB/hari"], 4, "Itu dosis ampisillin yang tercantum dalam sumber."], ["Kortikosteroid yang dicantumkan…", ["Betametason topikal", "Tidak ada", "Prednison topikal", "Deksametason oral 1 mg", "Hydrokortison 100 mg IV"], 4, "Sumber menyebut hydrokortison 100 mg IV."], ["Analgetik yang dicantumkan…", ["Ibuprofen topikal", "Aspirin 10 gram IV", "Tidak ada", "Morfin oral saja", "Acetaminophen IV 3×1 gram"], 4, "Dosis dalam materi: acetaminophen IV 3×1 gram."], ["Dukungan cairan yang disebutkan…", ["Hidrasi adekuat", "Diuretik rutin", "Cairan hanya saat demam", "Pembatasan total", "Hindari semua cairan"], 0, "Sumber menyebut hidrasi adekuat."], ["Urutan pertama pemeriksaan fisik…", ["MRI", "Sekret terkumpul di orofaring", "Hematologi", "Radiologi", "CT scan"], 1, "Langkah pertama yang ditulis adalah melihat sekret daerah orofaring."], ["Pemeriksaan dengan tongue spatel memperlihatkan…", ["Epiglotis merah dan oedem", "Epiglotis pucat", "Perdarahan esofagus", "Perforasi", "Epiglotis normal"], 0, "Materi menyebut epiglotis merah dan oedem."], ["Laringoskop indirek memperlihatkan…", ["Penyempitan esofagus", "Oedem dan kongesti supraglottis", "Abses paru", "Leukositosis", "Thumb sign"], 1, "Temuan tersebut tercantum dalam urutan pemeriksaan fisik."], ["Pemetaan pemeriksaan yang benar adalah…", ["Tidak ada pemeriksaan", "Radiologi-thumb sign; darah-leukositosis; endoskopi-edema/cherry; CT/MRI-abses", "Radiologi-leukositosis; darah-thumb sign", "Semua pemeriksaan sama", "CT/MRI-stridor"], 1, "Masing-masing modalitas memiliki temuan tersendiri seperti disebutkan dalam materi."]];let qs=[],ans={},graded={},i=0,L=["A","B","C","D","E"];function shuffle(a){for(let n=a.length-1;n>0;n--){let j=Math.floor(Math.random()*(n+1));[a[n],a[j]]=[a[j],a[n]]}return a}function setup(){qs=data.map(s=>({q:s[0],opts:s[1].map((t,j)=>({t,ok:j===s[2]})),ex:s[3]}))}function render(){let s=qs[i];counter.textContent=`Soal ${i+1} dari ${qs.length}`;answered.textContent=`Terjawab: ${Object.keys(ans).length}`;fill.style.width=Object.keys(ans).length/qs.length*100+"%";question.textContent=s.q;options.innerHTML="";s.opts.forEach((o,j)=>{let b=document.createElement("button");b.className="opt";if(ans[i]===j)b.classList.add("sel");if(graded[i]){if(o.ok)b.classList.add("ok");else if(ans[i]===j)b.classList.add("bad")}b.innerHTML=`<b>${L[j]}</b><span>${o.t}</span>`;b.onclick=()=>{if(!graded[i]){ans[i]=j;render()}};options.appendChild(b)});if(graded[i]){let k=s.opts.findIndex(o=>o.ok);feedback.className="feed show";feedback.innerHTML=`<b>${ans[i]===k?"Benar!":"Belum tepat."}</b> ${s.ex}<br><b>Jawaban:</b> ${L[k]}. ${s.opts[k].t}`}else feedback.className="feed";prev.disabled=i===0;next.textContent=i===qs.length-1?"Lihat hasil →":"Berikutnya →";nav()}function nav(){nums.innerHTML="";qs.forEach((s,j)=>{let b=document.createElement("button");b.className="num";b.textContent=j+1;if(i===j)b.classList.add("cur");else if(graded[j])b.classList.add(ans[j]===s.opts.findIndex(o=>o.ok)?"good":"wrong");else if(ans[j]!==undefined)b.classList.add("done");b.onclick=()=>{i=j;render()};nums.appendChild(b)})}prev.onclick=()=>{if(i>0){i--;render()}};next.onclick=()=>{if(i===qs.length-1)finishQuiz();else{i++;render()}};function finishQuiz(){let empty=qs.length-Object.keys(ans).length;if(empty&&!confirm(`Masih ada ${empty} soal kosong. Tetap selesaikan?`))return;qs.forEach((s,j)=>graded[j]=true);let n=qs.reduce((a,s,j)=>a+(ans[j]===s.opts.findIndex(o=>o.ok)?1:0),0);quiz.style.display="none";result.style.display="block";score.textContent=`${n}/${qs.length} (${Math.round(n/qs.length*100)}%)`;message.textContent=n/qs.length>=.8?"Bagus!":n/qs.length>=.6?"Cukup baik—tinjau soal yang keliru.":"Tetap semangat, pelajari pembahasannya.";details.textContent=`Benar: ${n} · Salah/kosong: ${qs.length-n}. Pilih nomor soal untuk meninjau pembahasan.`;sidetitle.textContent="Hasil kuis";finish.textContent="Tinjau soal";finish.onclick=review;nav()}function review(){result.style.display="none";quiz.style.display="block";i=0;render()}function restart(){ans={};graded={};i=0;setup();quiz.style.display="block";result.style.display="none";sidetitle.textContent="Navigasi soal";finish.textContent="Selesaikan kuis";finish.onclick=finishQuiz;render()}finish.onclick=finishQuiz;setup();render();</script></body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Benda Asing Esofagus & Trakea</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--primary:#355cde;--primary2:#eef2ff;--ok:#16865b;--bad:#d64545;--border:#e3e7ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,Arial,sans-serif;color:var(--text)}
+.container{max-width:900px;margin:auto;padding:28px 18px 50px}.hero{background:linear-gradient(135deg,#243b7a,#5274dc);color:white;border-radius:24px;padding:34px 30px;margin-bottom:20px;box-shadow:0 12px 35px #243b7a22}
+.hero h1{margin:0 0 8px;font-size:30px}.hero p{margin:0;opacity:.9;line-height:1.6}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:26px;margin-bottom:18px;box-shadow:0 5px 20px #1b2a4a0b}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.pill{background:#ffffff1c;border:1px solid #ffffff35;padding:8px 12px;border-radius:999px;font-size:13px}
+.top{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:18px}.progress{height:9px;background:#e9edf5;border-radius:10px;overflow:hidden}.bar{height:100%;background:var(--primary);width:0;transition:.25s}
+.qnum{color:var(--primary);font-weight:800;font-size:14px}.question{font-size:21px;line-height:1.5;font-weight:700;margin:10px 0 22px}
+.option{display:block;border:1.5px solid var(--border);padding:15px 16px;border-radius:14px;margin:11px 0;cursor:pointer;transition:.18s;background:#fff}
+.option:hover{border-color:#9aa9df;background:#fafbff}.option input{margin-right:10px;accent-color:var(--primary)}
+.option.correct{border-color:#48aa83;background:#ecfaf4}.option.wrong{border-color:#e37b7b;background:#fff1f1}
+.feedback{display:none;margin-top:18px;padding:16px;border-radius:14px;line-height:1.6;background:var(--primary2)}
+.feedback.show{display:block}.feedback.ok{background:#ecfaf4;border-left:4px solid var(--ok)}.feedback.bad{background:#fff1f1;border-left:4px solid var(--bad)}
+.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:22px}.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer}.primary{background:var(--primary);color:#fff}.secondary{background:#eef1f7;color:#25304a}.btn:disabled{opacity:.45;cursor:not-allowed}
+.hidden{display:none}.result{text-align:center}.score{font-size:52px;font-weight:900;color:var(--primary);margin:10px}.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.result-box{background:#f7f8fc;border-radius:15px;padding:16px}.result-box b{display:block;font-size:24px;margin-bottom:5px}
+.review{text-align:left;margin-top:20px}.review-item{padding:15px;border-bottom:1px solid var(--border);line-height:1.55}.tag{font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#eef1ff;color:#355cde}
+@media(max-width:650px){.hero h1{font-size:24px}.question{font-size:18px}.result-grid{grid-template-columns:1fr}.container{padding:15px 10px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <section class="hero">
+    <h1>Quiz Benda Asing Esofagus & Trakea</h1>
+    <p>Latihan klinis berbasis materi kuliah. Uji pemahaman dari definisi hingga kegawatdaruratan jalan napas.</p>
+    <div class="stats"><span class="pill">30 Soal</span><span class="pill">C1–C2 & C3–C4</span><span class="pill">Pilihan A–E</span><span class="pill">Pembahasan</span></div>
+  </section>
+
+  <section id="start" class="card">
+    <h2>Siap menguji pemahaman?</h2>
+    <p>Soal akan diacak setiap kali kuis dimulai. Kerjakan tanpa melihat catatan terlebih dahulu agar hasilnya lebih representatif.</p>
+    <button class="btn primary" onclick="startQuiz()">Mulai Kuis</button>
+  </section>
+
+  <section id="quiz" class="card hidden">
+    <div class="top"><div><span id="qnum" class="qnum"></span></div><div id="scoreLive">Benar: 0</div></div>
+    <div class="progress"><div id="bar" class="bar"></div></div>
+    <div id="question" class="question"></div>
+    <div id="options"></div>
+    <div id="feedback" class="feedback"></div>
+    <div class="actions"><button id="next" class="btn primary" disabled onclick="nextQuestion()">Soal Berikutnya</button></div>
+  </section>
+
+  <section id="result" class="card result hidden">
+    <h2>Kuis Selesai</h2>
+    <div class="score" id="finalScore"></div>
+    <p id="resultText"></p>
+    <div class="result-grid">
+      <div class="result-box"><b id="correctCount">0</b>Jawaban benar</div>
+      <div class="result-box"><b id="basicScore">0%</b>C1–C2</div>
+      <div class="result-box"><b id="clinicalScore">0%</b>C3–C4</div>
+    </div>
+    <button class="btn primary" onclick="restart()">Ulangi dengan Urutan Baru</button>
+    <button class="btn secondary" onclick="showReview()">Lihat Pembahasan</button>
+    <div id="review" class="review hidden"></div>
+  </section>
+</div>
+
+<script>
+const questions = [
+{level:"C1",q:"Berapa persen kasus benda asing (BA) esofagus yang terjadi pada anak-anak?",o:["50%","60%","70%","80%","90%"],a:3,e:"Materi menyebutkan bahwa sekitar 80% kasus benda asing di esofagus terjadi pada anak-anak."},
+{level:"C1",q:"Sebagian besar benda asing yang tertelan dapat melewati saluran cerna secara spontan sebanyak...",o:["20–30%","40–50%","60–70%","80–90%","95–100%"],a:3,e:"Sebanyak 80–90% benda asing yang tertelan dapat melewati saluran cerna secara spontan."},
+{level:"C1",q:"Berapa persen kasus benda asing yang memerlukan tindakan pembedahan?",o:["1%","5%","10%","20%","30%"],a:0,e:"Menurut materi, sekitar 1% kasus memerlukan pembedahan."},
+{level:"C1",q:"Benda asing yang paling sesuai dengan kategori organik adalah...",o:["Koin","Mainan plastik","Peniti","Tulang ayam","Jarum pentul"],a:3,e:"Tulang ayam termasuk benda asing organik, bersama biji-bijian dan sisa makanan."},
+{level:"C1",q:"Panjang rata-rata esofagus pada orang dewasa adalah sekitar...",o:["5 cm","10 cm","15 cm","25 cm","40 cm"],a:3,e:"Esofagus memiliki panjang rata-rata sekitar 25 cm."},
+{level:"C1",q:"Esofagus dimulai pada tingkat vertebra...",o:["C2","C4","C6","T4","T11"],a:2,e:"Esofagus mulai pada margo inferior kartilago cricoidea, setinggi C6."},
+{level:"C1",q:"Manakah yang merupakan salah satu dari empat titik penyempitan esofagus?",o:["Persilangan vena cava superior","Persilangan arcus aorta","Percabangan arteri pulmonalis","Apertura thoracis inferior","Ligamentum inguinale"],a:1,e:"Persilangan dengan arcus aorta merupakan salah satu dari empat titik penyempitan esofagus."},
+{level:"C1",q:"Trakea pada orang dewasa memiliki panjang sekitar...",o:["2–5 cm","5–8 cm","10–15 cm","20–25 cm","30–35 cm"],a:2,e:"Panjang trakea dewasa dalam materi adalah sekitar 10–15 cm."},
+{level:"C1",q:"Jumlah cincin tulang rawan berbentuk C pada trakea adalah sekitar...",o:["4–8","8–12","12–15","16–20","25–30"],a:3,e:"Trakea memiliki sekitar 16–20 cincin tulang rawan berbentuk huruf C."},
+{level:"C1",q:"Manakah yang termasuk benda asing non-organik?",o:["Biji-bijian","Sisa makanan","Tulang ayam","Koin","Potongan daging"],a:3,e:"Koin termasuk benda asing non-organik."},
+{level:"C2",q:"Gejala yang paling sesuai dengan benda asing di esofagus adalah...",o:["Rasa mengganjal dan sulit menelan","Batuk tiba-tiba dan sianosis saja","Hemoptisis dan demam tinggi","Nyeri telinga dan vertigo","Poliuria dan haus"],a:0,e:"Gejala esofagus yang disebutkan adalah rasa mengganjal, nyeri atau sulit menelan, muntah tiap makan, dan drooling."},
+{level:"C2",q:"Gejala yang lebih mengarah pada keterlibatan jalan napas adalah...",o:["Rasa mengganjal","Drooling","Sulit menelan","Batuk tiba-tiba dan stridor","Muntah setiap makan"],a:3,e:"Batuk tiba-tiba, sesak, mengi atau stridor, serta sianosis merupakan gejala terkait jalan napas."},
+{level:"C2",q:"Pada tes minum, kombinasi yang menunjukkan obstruksi total adalah...",o:["Minum banyak – tanpa sesak","Minum sedikit – agak sesak","Muntah – sesak – sianosis","Minum sedikit – sianosis saja","Tidak ada keluhan"],a:2,e:"Obstruksi total pada materi ditandai muntah, sesak, dan sianosis saat tes minum."},
+{level:"C2",q:"Pemeriksaan yang digunakan untuk melihat benda asing hipofaring dan edema regio aritenoid adalah...",o:["CT kepala","Laringoskopi indirek","EKG","Spirometri","USG abdomen"],a:1,e:"Laringoskopi indirek digunakan untuk melihat benda asing hipofaring, retensi air liur, dan edema regio aritenoid."},
+{level:"C2",q:"Kontras barium pada esofagogram harus dihindari terutama karena...",o:["Selalu menyebabkan alergi","Dapat menutupi benda asing/mukosa dan berisiko pada perforasi","Membuat foto polos tidak dapat dilakukan","Selalu menyebabkan perdarahan","Menghilangkan refleks batuk"],a:1,e:"Barium dapat mengganggu visualisasi endoskopi, berisiko pada perforasi mediastinal, dan dapat teraspirasi."},
+{level:"C3",q:"Seorang anak datang setelah diduga menelan benda asing. Benda tersebut tidak tampak secara klinis dan dicurigai radio-opaque. Pemeriksaan awal yang sesuai adalah...",o:["Foto polos X-ray","Esofagogram dengan barium","EEG","USG kepala","Spirometri"],a:0,e:"Foto polos X-ray digunakan untuk benda asing yang bersifat radio-opaque."},
+{level:"C3",q:"Pada pasien dewasa dengan kecurigaan benda asing radio-opaque, area foto polos yang disebutkan dalam materi adalah...",o:["Regio abdomen saja","Regio servikal","Regio pelvis","Regio kepala saja","Regio femur"],a:1,e:"Untuk dewasa, foto polos diarahkan pada regio servikal; pada anak, regio serviko-torako-abdominal."},
+{level:"C3",q:"Seorang pasien stabil dengan benda asing esofagus membutuhkan pengangkatan. Berdasarkan materi, tindakan yang paling direkomendasikan adalah...",o:["Observasi semua kasus","Endoskopi","Pemberian antibiotik saja","Heimlich maneuver","Pembedahan langsung pada semua kasus"],a:1,e:"Endoskopi merupakan gold standard pada pasien stabil dan merupakan tatalaksana yang paling direkomendasikan."},
+{level:"C3",q:"Pasien dengan benda asing esofagus datang dalam kondisi tidak stabil. Prioritas tatalaksana menurut materi adalah...",o:["Observasi dan pulangkan","Management airway dan endoskopi urgensi","Esofagogram barium terlebih dahulu","Menunggu benda keluar spontan","Pemberian obat relaksasi sfingter saja"],a:1,e:"Pada kondisi tidak stabil, dilakukan management airway dan endoskopi urgensi."},
+{level:"C3",q:"Seorang pasien stabil memiliki benda asing yang kecil. Pilihan tatalaksana yang disebutkan dalam materi dapat berupa...",o:["Observasi","Heimlich maneuver rutin","Trakeostomi segera","Kemoterapi","Imobilisasi ekstremitas"],a:0,e:"Pada pasien stabil, observasi dapat dipertimbangkan bila benda asing berukuran kecil."},
+{level:"C3",q:"Benda asing tertahan lama pada salah satu titik penyempitan esofagus. Urutan proses komplikasi yang sesuai adalah...",o:["Perforasi → toksisitas → inflamasi","Inflamasi → toksisitas → perforasi","Toksisitas → inflamasi → resolusi","Aspirasi → fraktur → perforasi","Edema → poliuria → perforasi"],a:1,e:"Materi memberikan alur patogenesis: benda asing lama → inflamasi → toksisitas → perforasi."},
+{level:"C3",q:"Seorang korban tersedak masih dapat batuk dengan kuat. Langkah awal yang sesuai materi adalah...",o:["Segera melakukan Heimlich","Membiarkan korban batuk untuk mengeluarkan benda","Memberi minum sebanyak-banyaknya","Melakukan esofagoskopi di tempat","Memberikan barium"],a:1,e:"Jika korban masih dapat batuk kuat, biarkan batuk terlebih dahulu untuk membantu mengeluarkan benda."},
+{level:"C3",q:"Korban tersedak mengalami sumbatan jalan napas total dan tidak dapat bernapas. Tindakan pertolongan yang disebutkan dalam materi adalah...",o:["Membiarkan korban diam","Memberikan makanan","Heimlich maneuver","Observasi 24 jam","Esofagogram"],a:2,e:"Pada sumbatan jalan napas total dengan ketidakmampuan bernapas, materi menyebutkan Heimlich maneuver."},
+{level:"C3",q:"Setelah pertolongan awal pada sumbatan jalan napas total, korban perlu segera dibawa ke IGD untuk pengangkatan benda asing menggunakan...",o:["Gastroskopi","Bronkoskopi","Kolonoskopi","Sistoskopi","Laparoskopi"],a:1,e:"Materi menyebutkan rujukan segera ke IGD untuk pengangkatan benda asing secara aman menggunakan bronkoskopi."},
+{level:"C3",q:"Seorang pasien dicurigai mengalami benda asing radiolusen. Pada esofagogram, temuan yang disebutkan dalam materi adalah...",o:["Filling defect persistent","Double bubble sign","Air bronchogram","Crescent sign","String sign"],a:0,e:"Benda asing radiolusen dapat memperlihatkan gambaran filling defect persistent pada esofagogram."},
+{level:"C3",q:"Bila esofagoskopi tidak dapat dilakukan, tindakan alternatif yang disebutkan dalam materi adalah...",o:["Pembedahan","Observasi tanpa batas","Kemoterapi","Dialisis","Radioterapi"],a:0,e:"Materi menyebutkan pembedahan bila esofagoskopi tidak dapat dilakukan."},
+{level:"C4",q:"Seorang pasien datang dengan rasa mengganjal, sulit menelan, dan drooling setelah makan. Tidak terdapat batuk tiba-tiba, stridor, atau sianosis. Berdasarkan pola gejala dalam materi, lokasi yang lebih sesuai adalah...",o:["Esofagus","Trakea","Paru distal","Lambung","Nasofaring"],a:0,e:"Rasa mengganjal, sulit menelan, dan drooling merupakan kelompok gejala yang dikaitkan dengan keterlibatan esofagus."},
+{level:"C4",q:"Pasien dengan benda asing esofagus menjalani pemeriksaan dan dicurigai mengalami perforasi kecil. Berdasarkan materi, tindakan yang disebutkan adalah...",o:["Pasang NGT","Heimlich maneuver","Pemberian barium","Menunda semua tindakan","Spirometri"],a:0,e:"Materi menyebutkan pemasangan NGT bila dicurigai perforasi kecil."},
+{level:"C4",q:"Seorang pasien stabil memiliki benda asing esofagus. Dokter mempertimbangkan observasi, obat yang merelaksasi sfingter, atau endoskopi. Pernyataan yang paling sesuai dengan materi adalah...",o:["Endoskopi merupakan gold standard","Observasi wajib untuk semua pasien","Obat relaksasi selalu menjadi pilihan utama","Heimlich merupakan gold standard","Pembedahan wajib dilakukan pada semua pasien"],a:0,e:"Pada pasien stabil, endoskopi disebut sebagai gold standard dan tatalaksana yang paling direkomendasikan."},
+{level:"C4",q:"Seorang pasien dengan benda asing esofagus dicurigai mengalami komplikasi serius akibat benda asing yang tertahan lama. Manakah komplikasi yang sesuai dengan materi?",o:["Mediastinitis","Hiperglikemia fisiologis","Otitis eksterna","Fraktur femur","Katarak"],a:0,e:"Komplikasi yang dicantumkan antara lain lesi/perforasi esofagus, mediastinitis, abses para-retrofaringeal, aspirasi, pneumothoraks, dan fistula aorto-esofageal."}
+];
+
+let quiz=[], current=0, score=0, answers=[], answered=false;
+
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5)}
+function startQuiz(){
+ quiz=shuffle(questions);current=0;score=0;answers=[];answered=false;
+ document.getElementById("start").classList.add("hidden");
+ document.getElementById("result").classList.add("hidden");
+ document.getElementById("quiz").classList.remove("hidden");
+ render();
+}
+function render(){
+ const q=quiz[current]; answered=false;
+ document.getElementById("qnum").textContent=`Soal ${current+1} dari ${quiz.length} • ${q.level}`;
+ document.getElementById("bar").style.width=`${current/quiz.length*100}%`;
+ document.getElementById("scoreLive").textContent=`Benar: ${score}`;
+ document.getElementById("question").textContent=q.q;
+ const opts=document.getElementById("options");opts.innerHTML="";
+ q.o.forEach((x,i)=>{
+   const label=document.createElement("label");label.className="option";
+   label.innerHTML=`<input type="radio" name="answer" value="${i}"> <b>${String.fromCharCode(65+i)}.</b> ${x}`;
+   label.onclick=()=>choose(i);
+   opts.appendChild(label);
+ });
+ const fb=document.getElementById("feedback");fb.className="feedback";fb.textContent="";
+ document.getElementById("next").disabled=true;
+ document.getElementById("next").textContent=current===quiz.length-1?"Lihat Hasil":"Soal Berikutnya";
+}
+function choose(i){
+ if(answered)return;answered=true;
+ const q=quiz[current], labels=[...document.querySelectorAll(".option")];
+ labels.forEach((el,j)=>{if(j===q.a)el.classList.add("correct");if(j===i&&i!==q.a)el.classList.add("wrong")});
+ if(i===q.a)score++;
+ answers.push({q,choice:i,correct:i===q.a});
+ const fb=document.getElementById("feedback");fb.classList.add("show",i===q.a?"ok":"bad");
+ fb.innerHTML=`<b>${i===q.a?"Benar!":"Belum tepat."}</b><br>${q.e}`;
+ document.getElementById("next").disabled=false;
+ document.getElementById("scoreLive").textContent=`Benar: ${score}`;
+}
+function nextQuestion(){
+ if(current<quiz.length-1){current++;render()}else finish();
+}
+function finish(){
+ document.getElementById("quiz").classList.add("hidden");
+ document.getElementById("result").classList.remove("hidden");
+ const basic=answers.filter(x=>x.q.level==="C1"||x.q.level==="C2");
+ const clinical=answers.filter(x=>x.q.level==="C3"||x.q.level==="C4");
+ const b=basic.filter(x=>x.correct).length, c=clinical.filter(x=>x.correct).length;
+ const pct=Math.round(score/quiz.length*100);
+ document.getElementById("finalScore").textContent=pct+"%";
+ document.getElementById("correctCount").textContent=`${score}/${quiz.length}`;
+ document.getElementById("basicScore").textContent=Math.round(b/basic.length*100)+"%";
+ document.getElementById("clinicalScore").textContent=Math.round(c/clinical.length*100)+"%";
+ document.getElementById("resultText").textContent=pct>=80?"Pemahaman materi sudah kuat. Tetap review bagian yang masih salah.":pct>=60?"Dasar materi sudah cukup, tetapi beberapa konsep perlu diperkuat.":"Sebaiknya ulangi ringkasan materi lalu kerjakan kuis kembali.";
+ document.getElementById("bar").style.width="100%";
+}
+function restart(){document.getElementById("review").classList.add("hidden");startQuiz()}
+function showReview(){
+ const r=document.getElementById("review");r.classList.remove("hidden");r.innerHTML="<h3>Pembahasan</h3>";
+ answers.forEach((x,i)=>{
+  const div=document.createElement("div");div.className="review-item";
+  div.innerHTML=`<span class="tag">${x.q.level}</span> <b>Soal ${i+1}</b><br>${x.q.q}<br><b>Jawaban:</b> ${x.q.o[x.q.a]}<br><span style="color:${x.correct?'#16865b':'#d64545'}">${x.correct?'Benar':'Jawaban Anda: '+x.q.o[x.choice]}</span><br><small>${x.q.e}</small>`;
+  r.appendChild(div);
+ });
+}
+</script>
+</body>
+</html>
